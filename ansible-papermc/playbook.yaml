@@ -1,0 +1,49 @@
+- name: PaperMC Minecraft Deployment
+  hosts: machines
+
+  vars:
+   - username: # ADMIN_USERNAME
+
+  tasks:
+
+   - name: Ping my hosts
+     ansible.builtin.ping:
+   - name: Update Packages
+     ansible.builtin.dnf:
+      name: "*"
+      state: latest
+     become: yes
+   - name: Install Java 11
+     ansible.builtin.dnf:
+      name: java-11-openjdk
+      state: present
+     become: yes
+   - name: Open Port 25565/udp
+     ansible.posix.firewalld:
+      port: 25565/tcp
+      permanent: yes
+      state: enabled
+     become: yes
+   - name: Open Port 25565 tcp
+     ansible.posix.firewalld:
+      port: 25565/udp
+      permanent: yes
+      state: enabled
+     become: yes
+   - name: Add EULA
+     template:
+      src: eula.txt.j2
+      dest: /home/{{ username }}/eula.txt
+   - name: Add server.properties
+     template:
+      src: server.properties.j2
+      dest: /home/{{ username }}/server.properties
+   - name: Download Server
+     ansible.builtin.get_url:
+      url: https://papermc.io/api/v2/projects/paper/versions/1.16.5/builds/788/downloads/paper-1.16.5-788.jar
+      dest: /home/{{ username }}/paper-1.16.5-788.jar
+   - name: Server running msg
+     ansible.builtin.debug:
+      msg: Server will be running shortly - Press CTRL+C to exit this session (The server will NOT be stopped)
+   - name: Run Server
+     ansible.builtin.shell: nohup java -Xms2G -Xmx2G -jar /home/{{ username }}/paper-1.16.5-788.jar --nogui

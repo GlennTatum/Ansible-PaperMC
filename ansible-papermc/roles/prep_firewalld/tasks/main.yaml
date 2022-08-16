@@ -1,0 +1,12 @@
+- name: Open Port 25565/udp
+  ansible.posix.firewalld:
+    port: 25565/udp
+    permanent: yes
+    state: enabled
+  become: yes
+- name: Open Port 25565/tcp
+  ansible.posix.firewalld:
+    port: 25565/tcp
+    permanent: yes
+    state: enabled
+  become: yes

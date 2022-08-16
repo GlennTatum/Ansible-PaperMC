@@ -1,0 +1,8 @@
+machines:
+  hosts:
+    vm01:
+      ansible_user: # username
+      ansible_host: # Example: 192.168.1.6
+
+      username: "{{ ansible_user }}"
+      version: # Example: 1.19

@@ -1,5 +1,0 @@
-machines:
-  hosts:
-    vm01:
-      ansible_user: # ADMIN_USERNAME
-      ansible_host: # SERVER_IP

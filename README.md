@@ -26,14 +26,11 @@ inventory.yaml
 machines:
   hosts:
     vm01:
-      ansible_user: alice
-      ansible_host: 192.168.1.8
----
+      ansible_user: # username
+      ansible_host: # Example: 192.168.1.6
 
-playbook.yaml
----
-  vars:
-   - username: alice
+      username: "{{ ansible_user }}"
+      version: # Example: 1.19
 ---
 ```
 

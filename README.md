@@ -3,8 +3,6 @@
 
 This playbook is has been tested on and run on a Fedora 36 Server.
 
-Currently it is setup to run 1.16.5 on Java 11.
-
 Supported Minecraft Versions:
 
 1.18+
